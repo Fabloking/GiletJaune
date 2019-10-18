@@ -1,50 +1,79 @@
-form {
-  position: absolute;
-  background-color: yellow;
-  width: 400px;
-  padding: 1em;
-  border: 1px solid #CCC;
-  border-radius: 1em;
-  top:50%;
-  left:50%;
-  margin-left:-150px;
-  margin-top:-200px;
-}
-
-h1{
-    text-align: center;
-}
-
-form div + div {
-  margin-top: 1em;
-}
-
-label {
+@media all
+{
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
   display: inline-block;
-  width: 90px;
-  text-align: right;
-}
-
-input, textarea {
-  font: 1em sans-serif;
-  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   box-sizing: border-box;
-  border: 1px solid #999;
 }
 
-input:focus, textarea:focus {
-  border-color: #000;
+input[type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-textarea {
-  vertical-align: top;
-  height: 5em;
+input[type=email], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.button {
-  padding-left: 90px;
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: yellow;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
 }
 
 button {
-  margin-left: .5em;
+  display: block;
+  margin: auto;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid gray;
+}
+
+button:hover {
+  background-color: yellow;
+  color: black;
+}
 }
