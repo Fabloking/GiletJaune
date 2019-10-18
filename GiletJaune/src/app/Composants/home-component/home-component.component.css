@@ -1,0 +1,9 @@
+@media all {
+.hero {
+    text-align: center;
+    background-image: url("C:\Users\fablo\git\Test\GiletJaune\GiletJaune\src\assets\GiletJauneAvengers.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+}
+}

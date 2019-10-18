@@ -8,6 +8,8 @@ import { InscriptionComponent } from './Composants/inscription/inscription.compo
 import { LoginComponent } from './Composants/login/login.component';
 import { NavBarComponent } from './Composants/nav-bar/nav-bar.component';
 import { TimeLineComponent } from './Composants/time-line/time-line.component';
+import { RouterModule } from '@angular/router';
+import { HomeComponentComponent } from './Composants/home-component/home-component.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,17 @@ import { TimeLineComponent } from './Composants/time-line/time-line.component';
     InscriptionComponent,
     LoginComponent,
     NavBarComponent,
-    TimeLineComponent
+    TimeLineComponent,
+    HomeComponentComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponentComponent},
+      {path: 'inscription', component: InscriptionComponent},
+      {path: 'connexion', component: LoginComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
