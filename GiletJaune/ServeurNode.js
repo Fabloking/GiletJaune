@@ -1,39 +1,24 @@
 var express = require('express');
-
+var MongoClient = require("mongodb").MongoClient;
 var hostname = 'localhost'; 
 var port = 3000; 
-
-var mongoose = require('mongoose'); 
-
-var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
-replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
-
-var urlmongo = "mongodb://localhost/DBGiletJaune"; 
-
-mongoose.connect(urlmongo, options);
-
-var db = mongoose.connection; 
-db.on('error', console.error.bind(console, 'Erreur lors de la connexion')); 
-db.once('open', function (){
-    console.log("Connexion à la base OK"); 
-}); 
-var app = express(); 
+var app = express();
 var bodyParser = require("body-parser"); 
+var myRouter = express.Router();
+var session  = require('express-session');
+var cors = require('cors');
+
+app.use(cors({origin: [
+	'http://localhost:4736'
+], credentials: true
+}));
+app.use(session({
+	secret: "Appartoo",
+	resave: false,
+	saveUninitialized: true
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-var utilisateurSchema = mongoose.Schema({
-	nom: String,
-	prenom: String, 
-    mail: String, 
-    mdp: String, 
-	ddn: String,
-	role: String   
-}); 
-
-var Utilisateur = mongoose.model('utilisateur', utilisateurSchema);
-
-var myRouter = express.Router();
 
 myRouter.route('/')
 .all(function(req,res){ 
@@ -42,27 +27,37 @@ myRouter.route('/')
   
 myRouter.route('/inscription')
 .post(function(req,res){
-	var utilisateur = new Utilisateur();
 
-	if(req.body.user_mdp = req.body.user_mdp2){
+});
 
-		utilisateur.nom = req.body.user_nom;
-		utilisateur.prenom = req.body.user_prenom;
-		utilisateur.mail = req.body.user_email;
-		utilisateur.mdp = req.body.user_mdp;
-		utilisateur.ddn = req.body.user_ddn;
-		utilisateur.role = req.body.role;
-		
-		utilisateur.save(function(err){
-			if(err){
-			  res.send(err);
+myRouter.route('/connexion')
+.post(function(req,res){
+	MongoClient.connect("mongodb://localhost", function(error, client) {
+		if (error) throw error;
+
+		var db = client.db('DBGiletJaune');
+
+		db.collection("utilisateurs").findOne({mail: req.body.user_email}, function(error, result) {
+			if (error) throw error;
+	 
+			if(req.body.user_mdp = result.mdp){
+				req.session.user = result.prenom;
+				res.send('<p>Bienvenue '+ result.prenom +' '+result.nom +'<p>')
+    			res.sendFile("C:/Users/fablo/git/Test/GiletJaune/GiletJaune/src/app/Composants/time-line/time-line.component.html");
 			}
-			res.sendFile('/src/app/Composants/time-line/time-line.component.html',{ root : __dirname});
-		  })
-	} else {
-		res.send({message : "Le mot de passe ne correspond pas !"})
-	}
+		});
+    console.log("Connecté à la base de données 'giletjaune'");
+	});
+});
 
+myRouter.route('/addfirend')
+.post(function(req,res){
+	
+});
+
+myRouter.route('/changeinfo')
+.post(function(req,res){
+	
 });
 
 app.use(myRouter);   
