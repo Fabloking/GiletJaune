@@ -1,14 +1,21 @@
-<div>
-<form action="http://localhost:3000/connexion" method="post">
+<div *ngIf="loggedIn === undefined">Loading...</div>
+<div *ngIf="loggedIn === false" class="logged-out">
     <h1>Connecte-toi</h1>
-
         <label for="name">Email :</label>
-        <input type="email" id="name" name="user_email">
+        <input type="email" placeholder="Email" [(ngModel)]="email">
 
         <label for="name">Mot de Passe:</label>
-        <input type="password" id="name" name="user_mdp">
-
-        <input type="submit">
-</form>
+        <input type="password" placeholder="Password" [(ngModel)]="password">
+        <br><br>
+        <button class="login" (click)="doLogin()">Login</button>
 </div>
-
+<div *ngIf="loggedIn === true" class="logged-in">
+    You are logged in.
+    <div>
+        Your balance is: {{users?.Users}}
+      </div>
+      <div>
+        <button (click)="getAllUsers()">voir tes amis</button>
+      </div>
+    <button class="logout" (click)="logout()">logout</button>
+</div>
