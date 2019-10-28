@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   email;
   password;
   loggedIn;
+  users;
 
 
   constructor(private dataservice: DataService,
@@ -33,10 +34,6 @@ export class LoginComponent implements OnInit {
     .subscribe(() => {
       this.loggedIn = false;
     });
-  }
-
-  getAllUsers(){
-    this.dataservice.getAllUsers()
   }
 
   doLogin() {
